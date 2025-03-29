@@ -1,18 +1,42 @@
 // rafce
 import React from 'react'
+import Hippo from './Hippo'
+import EstacaoClimatica from './EstacaoClimatica'
 
 class App extends React.Component {
  
-  constructor(props){
-    super(props)
-    this.state = {
-      latitude: null,
-      longitude: null,
-      estacao: null,
-      data: null,
-      icone: null,
-      mensagemDeErro: null  
-    }
+  state = {
+    latitude: null,
+    longitude: null,
+    estacao: null,
+    data: null,
+    icone: null,
+    mensagemDeErro: null
+  }
+  // constructor(props){
+  //   super(props)
+  //   this.state = {
+  //     latitude: null,
+  //     longitude: null,
+  //     estacao: null,
+  //     data: null,
+  //     icone: null,
+  //     mensagemDeErro: null  
+  //   }
+  //   console.log('constructor')
+  // }
+
+  componentDidMount(){
+    console.log('componentDidMount')
+    this.obterLocalizacao()
+  }
+
+  componentDidUpdate(){
+    console.log('componentDidUpdate')
+  }
+
+  componentWillUnmount(){
+    console.log('componentWillUnmount')
   }
 
   estacoes = {
@@ -90,12 +114,14 @@ class App extends React.Component {
 
 
   render(){
+    console.log('render')
     return (
       <div className="container mt-2 text-center">
         <div className="row">
             <div className="col-12">
               <div className="justify-content-center d-flex">
-                <i className="fa-hippo fas fa-2x"></i>
+                {/* <i className="fa-hippo fas fa-4x"></i> */}
+                <Hippo />
               </div>
             </div>
         </div>
@@ -103,38 +129,15 @@ class App extends React.Component {
           {/* .col-sm-12.col-lg-6.col-xxl-4 */}
           <div className="col-sm-12 col-lg-6 col-xxl-4">
             {/* .card>.card-body */}
-              <div className="card">
-                <div className="card-body">
-                  <div 
-                    className="d-flex align-items-center border rounded mb-2"
-                    style={{height: '6rem'}}>
-                      <i className={`fas fa-5x fa-${this.state.icone}`}></i>
-                      <p className="w-75 ms-3 text-center fs-1">
-                        {this.state.estacao}
-                      </p>
-                  </div>
-                  <div>
-                    <p className="text-center">
-                      {
-                        this.state.latitude ?
-                          `Coordenadas: ${this.state.latitude}, ${this.state.longitude}. Data: ${this.state.data}`
-                        :
-                          this.state.mensagemDeErro ?
-                            `${this.state.mensagemDeErro}`
-                          :
-                            'Clique no botão para saber a sua estação'
-
-                      }
-                    </p>
-                  </div>
-                  <button 
-                    type="button" 
-                    className='btn btn-primary w-100 mt-3'
-                    onClick={() => this.obterLocalizacao()}>
-                    Qual a minha estação?
-                  </button>
-                </div>
-              </div>
+            
+            <EstacaoClimatica 
+              latitude={this.state.latitude}
+              longitude={this.state.longitude}
+              estacao={this.state.estacao}
+              data={this.state.data}
+              icone={this.state.icone}
+              mensagemDeErro={this.state.mensagemDeErro}
+              obterLocalizacao={this.obterLocalizacao}/>  
 
           </div>
         </div>
