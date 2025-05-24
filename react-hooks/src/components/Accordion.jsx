@@ -12,17 +12,23 @@ const Accordion = ({itens}) => {
     setIndiceAtivo(indice)
   }
 
-  const expressaoJSX = itens.map((item, indice) => (
-    <Card id="accordion" key={indice} className='border-1 border-400'>
-      <div onClick={() => itemClicado(indice)}>
-        <i className="pi pi-angle-down"></i>
-        <h5 className='ml-3 inline'>{item.titulo}</h5>
-      </div> 
-      <p>
-        {item.conteudo}
-      </p> 
-    </Card>
-  ))
+  const expressaoJSX = itens.map((item, indice) => {
+    //escolher entre down ou right, comparando o indice da vez com o indiceAtivo, usando um ternario
+    const classExibirIcone = indice === indiceAtivo ? 'down' : 'right'
+    //decidir se o p fica oculto (hidden) ou não (classe nenhuma)
+    const classExibirConteudo = indice === indiceAtivo ? '' : 'hidden'
+    return(
+      <Card id="accordion" key={indice} className='border-1 border-400'>
+        <div onClick={() => itemClicado(indice)}>
+          <i className={`pi pi-angle-${classExibirIcone}`}></i>
+          <h5 className='ml-3 inline'>{item.titulo}</h5>
+        </div> 
+        <p className={classExibirConteudo}>
+          {item.conteudo}
+        </p> 
+      </Card>
+    )
+  })
   return (
     <div>
       <p>{indiceAtivo}</p>
