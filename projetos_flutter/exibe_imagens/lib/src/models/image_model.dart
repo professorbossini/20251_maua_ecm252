@@ -11,4 +11,9 @@ class ImageModel {
     alt = decodedJSON['photos'][0]['alt'];
 
   ImageModel(this.url, this.alt);
+
+  @override
+  String toString() {
+    return 'alt: $alt, url: $url';
+  }
 }
